@@ -4,8 +4,8 @@ import path from 'path'
 import fs from 'fs'
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  const filePath = path.resolve('.', 'public/TestTemplate.docx') // Assurez-vous de mettre le bon chemin
-  const fileName = 'your-file.docx' // Nom du fichier à télécharger
+  const filePath = path.resolve('.', 'public/bail.docx') // Assurez-vous de mettre le bon chemin
+  const fileName = 'bail.docx' // Nom du fichier à télécharger
 
   try {
     const fileBuffer = fs.readFileSync(filePath)
