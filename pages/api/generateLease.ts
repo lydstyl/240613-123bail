@@ -11,7 +11,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseData>
 ) {
-  console.log('il faut générer un bail ici', req.body)
+  console.log('il faut générer un bail ici', req.body, typeof req.body)
 
   // Documents contain sections, you can have multiple sections per document, go here to learn more about sections
   // This simple example will only contain one section
@@ -24,7 +24,7 @@ export default async function handler(
             children: [
               new TextRun('Hello World'),
               new TextRun({
-                text: 'Foo Bar',
+                text: req.body,
                 bold: true
               }),
               new TextRun({
