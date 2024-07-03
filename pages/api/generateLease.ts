@@ -22,10 +22,6 @@ export default async function handler(
     const parsed = schema.parse(JSON.parse(req.body))
     console.log('🚀 ~ parsed:', parsed)
 
-    // res.redirect(307, `/api/downloadDocx`)
-
-    // Documents contain sections, you can have multiple sections per document, go here to learn more about sections
-    // This simple example will only contain one section
     const doc = new Document({
       sections: [
         {
@@ -35,16 +31,16 @@ export default async function handler(
               children: [
                 new TextRun('Hello World '),
                 new TextRun({
-                  text: `${parsed.tenantName} ${parsed.lessorName}`,
+                  text: `\t${parsed.tenantName} `,
                   bold: true
                 }),
                 new TextRun({
-                  text: parsed.lessorName,
-                  bold: true
+                  text: `\t${parsed.lessorName}`,
+                  bold: false
                 }),
                 new TextRun({
                   text: '\tGithub is the best',
-                  bold: true
+                  bold: false
                 })
               ]
             })
@@ -54,11 +50,9 @@ export default async function handler(
     })
 
     // Used to export the file into a .docx file
-    Packer.toBuffer(doc).then((buffer) => {
-      const filePath = path.resolve('.', 'tmp/bail.docx')
-      // fs.writeFileSync('bail.docx', buffer)
-      fs.writeFileSync(filePath, buffer)
-    })
+    const buffer = await Packer.toBuffer(doc)
+    const filePath = path.resolve('.', 'tmp/bail.docx')
+    fs.writeFileSync(filePath, buffer)
 
     // Done! A file called 'My Document.docx' will be in your file system.
 
