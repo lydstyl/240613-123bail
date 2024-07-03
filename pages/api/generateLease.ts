@@ -55,7 +55,7 @@ export default async function handler(
 
     // Used to export the file into a .docx file
     Packer.toBuffer(doc).then((buffer) => {
-      const filePath = path.resolve('.', 'public/bail.docx')
+      const filePath = path.resolve('.', 'tmp/bail.docx')
       // fs.writeFileSync('bail.docx', buffer)
       fs.writeFileSync(filePath, buffer)
     })
