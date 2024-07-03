@@ -1,12 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { z } from 'zod'
-import { NextRequest, NextResponse } from 'next/server'
 import * as fs from 'fs'
 import path from 'path'
 import { Document, Packer, Paragraph, TextRun } from 'docx'
+import { put } from '@vercel/blob'
 
 type ResponseData = {
   message: string
+  url?: string
 }
 
 const schema = z.object({
@@ -59,12 +60,13 @@ export default async function handler(
 
     // Used to export the file into a .docx file
     const buffer = await Packer.toBuffer(doc)
-    const filePath = path.resolve(process.cwd(), 'tmp', 'bail.docx')
+    const filename = 'bail.docx'
+    const filePath = path.resolve(process.cwd(), 'tmp', filename)
     fs.writeFileSync(filePath, buffer)
 
-    // Done! A file called 'My Document.docx' will be in your file system.
+    const blob = await put(filePath, buffer, { access: 'public' })
 
-    res.status(200).json({ message: 'Un bail doit être généré !' })
+    res.status(200).json({ message: `Bail généré: ${blob.url}`, url: blob.url })
   } catch (error) {
     console.log('🚀 ~ error:', error)
   }

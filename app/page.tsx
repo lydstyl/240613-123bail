@@ -4,6 +4,7 @@ import React, { useState, FormEvent } from 'react'
 
 export default function Home() {
   const [showDowloadButton, setShowDownloadButton] = useState(false)
+  const [leaseUrl, setLeaseUrl] = useState(null)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -23,6 +24,7 @@ export default function Home() {
     }
     const data = await response.json()
     console.log('🚀 ~ onSubmit ~ data:', data)
+    setLeaseUrl(data.url)
 
     setShowDownloadButton(true)
   }
@@ -52,6 +54,7 @@ export default function Home() {
       {showDowloadButton && (
         <a href='http://localhost:3000/api/downloadDocx'>Télécharger le bail</a>
       )}
+      {leaseUrl && <a href={leaseUrl}>Télécharger le bail 2 </a>}
     </main>
   )
 }
