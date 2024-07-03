@@ -23,7 +23,6 @@ export default function Home() {
         throw new Error('Failed to submit the data. Please try again.')
       }
       const data = await response.json()
-      console.log('🚀 ~ onSubmit ~ data:', data)
       setLeaseUrl(data.url)
       setIsLoading(false)
     } catch (error) {

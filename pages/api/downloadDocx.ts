@@ -4,29 +4,29 @@ import fs from 'fs'
 
 import { list, del, ListBlobResult } from '@vercel/blob'
 
-type Blob = {
-  url: string
-}
+// type Blob = {
+//   url: string
+// }
 
-async function deleteAllBlobs() {
-  let cursor
+// async function deleteAllBlobs() {
+//   let cursor
 
-  do {
-    const listResult: ListBlobResult = await list({
-      cursor,
-      limit: 1000
-    })
-    console.log('🚀 ~ deleteAllBlobs ~ listResult:', listResult)
+//   do {
+//     const listResult: ListBlobResult = await list({
+//       cursor,
+//       limit: 1000
+//     })
+//     console.log('🚀 ~ deleteAllBlobs ~ listResult:', listResult)
 
-    if (listResult.blobs.length > 0) {
-      await del(listResult.blobs.map((blob: Blob) => blob.url))
-    }
+//     if (listResult.blobs.length > 0) {
+//       await del(listResult.blobs.map((blob: Blob) => blob.url))
+//     }
 
-    cursor = listResult.cursor
-  } while (cursor)
+//     cursor = listResult.cursor
+//   } while (cursor)
 
-  console.log('All blobs were deleted')
-}
+//   console.log('All blobs were deleted')
+// }
 
 // deleteAllBlobs().catch((error) => {
 //   console.error('An error occurred:', error)
@@ -58,7 +58,7 @@ export default async function handler(
     // remove file after download
     fs.unlinkSync(filePath)
     // await del(blob.url)
-    await deleteAllBlobs()
+    // await deleteAllBlobs()
   } catch (error) {
     console.error('Error downloading file:', error)
     res.status(500).json({ error: 'Failed to download file' })

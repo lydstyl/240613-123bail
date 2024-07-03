@@ -25,7 +25,6 @@ export default async function handler(
       return
     }
     const parsed = schema.parse(JSON.parse(req.body))
-    console.log('🚀 ~ parsed:', parsed)
     if (!parsed) {
       res.status(400).json({ message: 'Content is required' })
       return
