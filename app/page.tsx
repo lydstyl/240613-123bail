@@ -41,13 +41,13 @@ export default function Home() {
           className='m-10 bg-slate-300'
           type='text'
           name='tenantName'
-          placeholder='tenantName'
+          placeholder='Nom du locataire'
         />
         <input
           className='m-10 bg-slate-300'
           type='text'
           name='lessorName'
-          placeholder='lessorName'
+          placeholder='Nom du bailleur'
         />
         <button className='bg-slate-200' type='submit'>
           Générer le bail
