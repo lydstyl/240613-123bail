@@ -3,7 +3,6 @@
 import React, { useState, FormEvent } from 'react'
 
 export default function Home() {
-  const [showDowloadButton, setShowDownloadButton] = useState(false)
   const [leaseUrl, setLeaseUrl] = useState(null)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
@@ -13,20 +12,24 @@ export default function Home() {
     setIsLoading(true)
     setError(null) // Clear previous errors when a new request starts
 
-    const formData = new FormData(event.currentTarget)
+    try {
+      const formData = new FormData(event.currentTarget)
 
-    const response = await fetch('/api/generateLease', {
-      method: 'POST',
-      body: JSON.stringify(Object.fromEntries(formData))
-    })
-    if (!response.ok) {
-      throw new Error('Failed to submit the data. Please try again.')
+      const response = await fetch('/api/generateLease', {
+        method: 'POST',
+        body: JSON.stringify(Object.fromEntries(formData))
+      })
+      if (!response.ok) {
+        throw new Error('Failed to submit the data. Please try again.')
+      }
+      const data = await response.json()
+      console.log('🚀 ~ onSubmit ~ data:', data)
+      setLeaseUrl(data.url)
+      setIsLoading(false)
+    } catch (error) {
+      setIsLoading(false)
+      setError(JSON.stringify(error))
     }
-    const data = await response.json()
-    console.log('🚀 ~ onSubmit ~ data:', data)
-    setLeaseUrl(data.url)
-
-    setShowDownloadButton(true)
   }
 
   return (
@@ -51,10 +54,7 @@ export default function Home() {
         </button>
       </form>
 
-      {showDowloadButton && (
-        <a href='http://localhost:3000/api/downloadDocx'>Télécharger le bail</a>
-      )}
-      {leaseUrl && <a href={leaseUrl}>Télécharger le bail 2 </a>}
+      {leaseUrl && <a href={leaseUrl}>Télécharger le bail</a>}
     </main>
   )
 }

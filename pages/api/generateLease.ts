@@ -38,17 +38,15 @@ export default async function handler(
           children: [
             new Paragraph({
               children: [
-                new TextRun('Hello World '),
+                new TextRun('BAIL DE LOCATION\n\n'),
+                new TextRun('Locataire: '),
                 new TextRun({
                   text: `\t${parsed.tenantName} `,
                   bold: true
                 }),
+                new TextRun('bailleur: '),
                 new TextRun({
                   text: `\t${parsed.lessorName}`,
-                  bold: false
-                }),
-                new TextRun({
-                  text: '\tGithub is the best',
                   bold: false
                 })
               ]
