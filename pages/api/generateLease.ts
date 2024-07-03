@@ -60,11 +60,11 @@ export default async function handler(
 
     // Used to export the file into a .docx file
     const buffer = await Packer.toBuffer(doc)
-    const filename = 'bail.docx'
-    const filePath = path.resolve(process.cwd(), 'tmp', filename)
-    fs.writeFileSync(filePath, buffer)
+    const fileName = 'bail.docx'
+    const filePath = path.resolve(process.cwd(), 'tmp', fileName)
 
-    const blob = await put(filePath, buffer, { access: 'public' })
+    fs.writeFileSync(fileName, buffer)
+    const blob = await put(fileName, buffer, { access: 'public' })
 
     res.status(200).json({ message: `Bail généré: ${blob.url}`, url: blob.url })
   } catch (error) {
