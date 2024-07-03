@@ -19,8 +19,16 @@ export default async function handler(
   res: NextApiResponse<ResponseData>
 ) {
   try {
+    if (req.method !== 'POST') {
+      res.status(405).json({ message: 'Method not allowed' })
+      return
+    }
     const parsed = schema.parse(JSON.parse(req.body))
     console.log('🚀 ~ parsed:', parsed)
+    if (!parsed) {
+      res.status(400).json({ message: 'Content is required' })
+      return
+    }
 
     const doc = new Document({
       sections: [
