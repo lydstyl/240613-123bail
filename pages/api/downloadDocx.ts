@@ -18,6 +18,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     res.setHeader('Content-Length', fileBuffer.length.toString())
 
     res.status(200).send(fileBuffer)
+
+    // remove file after download todo
   } catch (error) {
     console.error('Error downloading file:', error)
     res.status(500).json({ error: 'Failed to download file' })
