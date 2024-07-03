@@ -51,7 +51,7 @@ export default async function handler(
 
     // Used to export the file into a .docx file
     const buffer = await Packer.toBuffer(doc)
-    const filePath = path.resolve('.', 'tmp/bail.docx')
+    const filePath = path.resolve(process.cwd(), 'tmp', 'bail.docx')
     fs.writeFileSync(filePath, buffer)
 
     // Done! A file called 'My Document.docx' will be in your file system.
