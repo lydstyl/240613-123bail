@@ -5,8 +5,10 @@ import { loadStripe } from '@stripe/stripe-js'
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
-export default function PreviewPage() {
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || ''
+)
+export default function PreviewPage({ leaseUrl }: { leaseUrl: string }) {
   React.useEffect(() => {
     // Check to see if this is a redirect back from Checkout
     const query = new URLSearchParams(window.location.search)
@@ -22,11 +24,14 @@ export default function PreviewPage() {
   }, [])
 
   return (
-    <form action='/api/checkout_sessions' method='POST'>
+    <form action={`/api/checkout_sessions?leaseUrl=${leaseUrl}`} method='POST'>
       <section>
         <button type='submit' role='link'>
-          Checkout
+          Obtenir votre bail contre 10 €
         </button>
+        {/* <pre>
+          <code>{JSON.stringify(leaseUrl, null, 2)}</code>
+        </pre> */}
       </section>
       <style jsx>
         {`

@@ -1,9 +1,19 @@
 'use client'
 
 import React, { useState, FormEvent } from 'react'
+import { useSearchParams } from 'next/navigation'
 
-export default function Home() {
-  const [leaseUrl, setLeaseUrl] = useState(null)
+import PreviewPage from './orderPreview/page'
+
+interface HomeProps {
+  leaseUrl: string | null
+}
+
+const Home: React.FC<HomeProps> = () => {
+  const searchParams = useSearchParams()
+  const leaseUrl2 = searchParams?.get('leaseUrl2') || null
+
+  const [leaseUrl, setLeaseUrl] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -24,6 +34,12 @@ export default function Home() {
       }
       const data = await response.json()
       setLeaseUrl(data.url)
+      // // in local storage
+      // if (typeof window !== 'undefined') {
+      //   console.log('localStorage', data.url)
+
+      //   localStorage.setItem(data.url, data.url)
+      // }
       setIsLoading(false)
     } catch (error) {
       setIsLoading(false)
@@ -33,27 +49,34 @@ export default function Home() {
 
   return (
     <main className='p-24'>
-      <h1 className='text-2xl'>Créer un bail</h1>
+      <h1 className='text-2xl'>123 bail !</h1>
 
-      <form onSubmit={onSubmit}>
-        <input
-          className='m-10 bg-slate-300'
-          type='text'
-          name='tenantName'
-          placeholder='Nom du locataire'
-        />
-        <input
-          className='m-10 bg-slate-300'
-          type='text'
-          name='lessorName'
-          placeholder='Nom du bailleur'
-        />
-        <button className='bg-slate-200' type='submit'>
-          Générer le bail
-        </button>
-      </form>
+      {!leaseUrl2 && (
+        <form onSubmit={onSubmit}>
+          <input
+            className='m-10 bg-slate-300'
+            type='text'
+            name='tenantName'
+            placeholder='Nom du locataire'
+          />
+          <input
+            className='m-10 bg-slate-300'
+            type='text'
+            name='lessorName'
+            placeholder='Nom du bailleur'
+          />
 
-      {leaseUrl && <a href={leaseUrl}>Télécharger le bail</a>}
+          <button className='bg-slate-200' type='submit'>
+            Générer le bail
+          </button>
+        </form>
+      )}
+
+      {leaseUrl && <PreviewPage leaseUrl={leaseUrl} />}
+      {leaseUrl2 && <a href={leaseUrl2}>Télécharger le bail</a>}
+      {/* mettre tout ça sur une autre page pour que la home soit une home de SEO avec video et argument marketing */}
     </main>
   )
 }
+
+export default Home

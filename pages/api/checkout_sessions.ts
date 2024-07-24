@@ -4,12 +4,12 @@ const storeItems = new Map([
   [1, { priceInCents: 1000, name: 'Votre bail' }]
   //   [2, { priceInCents: 20000, name: 'Learn CSS Today' }]
 ])
-const xxx = storeItems.get(1)
-console.log('🚀 ~ xxx:', xxx)
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     try {
+      const { leaseUrl } = req.query
+      console.log('🚀 ~ handler ~ leaseUrl:', leaseUrl)
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
         mode: 'payment',
@@ -31,7 +31,7 @@ export default async function handler(req, res) {
             quantity: item.quantity
           }
         }),
-        success_url: `${req.headers.origin}/?success=true`,
+        success_url: `${req.headers.origin}/?success=true&leaseUrl2=${leaseUrl}`,
         cancel_url: `${req.headers.origin}/?canceled=true`
       })
       res.redirect(303, session.url)
