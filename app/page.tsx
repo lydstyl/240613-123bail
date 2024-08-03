@@ -4,11 +4,11 @@ import React, { useState, FormEvent } from 'react'
 import { useSearchParams } from 'next/navigation'
 import OrderPreviewButton from '@/components/OrderPreviewButton'
 
-type HomeProps = {
-  leaseUrl: string | null
+type Props = {
+  // leaseUrl: string | null
 }
 
-const Home: React.FC<HomeProps> = () => {
+const Home: React.FC<Props> = () => {
   const searchParams = useSearchParams()
   const leaseUrl2 = searchParams?.get('leaseUrl2') || null
 

@@ -5,7 +5,19 @@ const storeItems = new Map([
   //   [2, { priceInCents: 20000, name: 'Learn CSS Today' }]
 ])
 
-export default async function handler(req, res) {
+export default async function handler(
+  req: { method: string; query: { leaseUrl: any }; headers: { origin: any } },
+  res: {
+    redirect: (arg0: number, arg1: any) => void
+    status: (arg0: number) => {
+      (): any
+      new (): any
+      json: { (arg0: any): void; new (): any }
+      end: { (arg0: string): void; new (): any }
+    }
+    setHeader: (arg0: string, arg1: string) => void
+  }
+) {
   if (req.method === 'POST') {
     try {
       const { leaseUrl } = req.query
@@ -36,7 +48,7 @@ export default async function handler(req, res) {
       })
       res.redirect(303, session.url)
     } catch (err) {
-      res.status(err.statusCode || 500).json(err.message)
+      res.status((err as any).statusCode || 500).json((err as any).message)
     }
   } else {
     res.setHeader('Allow', 'POST')
