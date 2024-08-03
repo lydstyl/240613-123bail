@@ -25,11 +25,11 @@ const Home: React.FC<HomeProps> = () => {
     try {
       const formData = new FormData(event.currentTarget)
 
-      const response = await fetch('/api/generateLease', {
+      const response = await fetch('/api/patchLease', {
         method: 'POST',
         headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
+          Accept: 'application/json'
+          // 'Content-Type': 'application/json'
         },
         // body: Object.fromEntries(formData)
         body: JSON.stringify(Object.fromEntries(formData))
