@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { z } from 'zod'
 import * as fs from 'fs'
 import path from 'path'
-import { Document, Packer, Paragraph, TextRun } from 'docx'
+import { Paragraph, patchDocument, PatchType, IPatch } from 'docx'
 import { put } from '@vercel/blob'
 
 type ResponseData = {
@@ -15,6 +15,17 @@ const schema = z.object({
   lessorName: z.string()
 })
 
+const editDocx = async (patches: { readonly [key: string]: IPatch }) => {
+  try {
+    const doc = await patchDocument(fs.readFileSync('template.docx'), {
+      patches
+    })
+    return doc
+  } catch (error) {
+    console.error(`Error: ${error}`)
+  }
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseData>
@@ -24,47 +35,31 @@ export default async function handler(
       res.status(405).json({ message: 'Method not allowed' })
       return
     }
-    // const parsed = schema.parse(req.body)
     const parsed = schema.parse(JSON.parse(req.body))
     if (!parsed) {
       res.status(400).json({ message: 'Content is required' })
       return
     }
 
-    const doc = new Document({
-      sections: [
-        {
-          properties: {},
-          children: [
-            new Paragraph({
-              children: [new TextRun('BAIL DE LOCATION')]
-            }),
-            new Paragraph({
-              children: [
-                new TextRun('Locataire: '),
-                new TextRun({
-                  text: `\t${parsed.tenantName} `,
-                  bold: true
-                }),
-                new TextRun('bailleur: '),
-                new TextRun({
-                  text: `\t${parsed.lessorName}`,
-                  bold: false
-                })
-              ]
-            })
-          ]
-        }
-      ]
-    })
+    const patches: {
+      readonly [key: string]: IPatch
+    } = {
+      my_tag_here: {
+        type: PatchType.DOCUMENT,
+        children: [new Paragraph({ text: parsed.lessorName })]
+      }
+    }
 
-    // Used to export the file into a .docx file
-    const buffer = await Packer.toBuffer(doc)
+    const doc = await editDocx(patches)
+    if (!doc) {
+      throw new Error('Failed to generate the document')
+    }
+
+    const buffer = Buffer.from(doc)
     const fileName = 'bail.docx'
-    // const filePath = path.resolve(process.cwd(), 'tmp', fileName)
     const filePath = path.resolve('/tmp', fileName)
 
-    fs.writeFileSync(filePath, buffer)
+    fs.writeFileSync(filePath, buffer) // needed ?
     const blob = await put(filePath, buffer, { access: 'public' })
 
     res.status(200).json({ message: `Bail généré: ${blob.url}`, url: blob.url })
