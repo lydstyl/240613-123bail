@@ -17,9 +17,12 @@ const schema = z.object({
 
 const editDocx = async (patches: { readonly [key: string]: IPatch }) => {
   try {
-    const doc = await patchDocument(fs.readFileSync('template.docx'), {
-      patches
-    })
+    const doc = await patchDocument(
+      fs.readFileSync(path.join(process.cwd(), '_assets', 'template.docx')),
+      {
+        patches
+      }
+    )
     return doc
   } catch (error) {
     console.error(`Error: ${error}`)
