@@ -24,6 +24,7 @@ export default async function handler(
       res.status(405).json({ message: 'Method not allowed' })
       return
     }
+    // const parsed = schema.parse(req.body)
     const parsed = schema.parse(JSON.parse(req.body))
     if (!parsed) {
       res.status(400).json({ message: 'Content is required' })

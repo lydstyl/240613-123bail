@@ -27,6 +27,11 @@ const Home: React.FC<HomeProps> = () => {
 
       const response = await fetch('/api/generateLease', {
         method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        // body: Object.fromEntries(formData)
         body: JSON.stringify(Object.fromEntries(formData))
       })
       if (!response.ok) {
