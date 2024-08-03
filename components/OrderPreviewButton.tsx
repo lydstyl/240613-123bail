@@ -1,5 +1,3 @@
-'use client'
-
 import React from 'react'
 import { loadStripe } from '@stripe/stripe-js'
 
@@ -8,7 +6,12 @@ import { loadStripe } from '@stripe/stripe-js'
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || ''
 )
-export default function PreviewPage({ leaseUrl }: { leaseUrl: string }) {
+
+type Props = {
+  leaseUrl: string
+}
+
+const OrderPreviewButton: React.FC<Props> = ({ leaseUrl }) => {
   React.useEffect(() => {
     // Check to see if this is a redirect back from Checkout
     const query = new URLSearchParams(window.location.search)
@@ -63,3 +66,5 @@ export default function PreviewPage({ leaseUrl }: { leaseUrl: string }) {
     </form>
   )
 }
+
+export default OrderPreviewButton

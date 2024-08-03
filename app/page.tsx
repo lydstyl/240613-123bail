@@ -2,10 +2,9 @@
 
 import React, { useState, FormEvent } from 'react'
 import { useSearchParams } from 'next/navigation'
+import OrderPreviewButton from '@/components/OrderPreviewButton'
 
-import PreviewPage from './orderPreview/page'
-
-interface HomeProps {
+type HomeProps = {
   leaseUrl: string | null
 }
 
@@ -77,7 +76,7 @@ const Home: React.FC<HomeProps> = () => {
         </form>
       )}
 
-      {leaseUrl && <PreviewPage leaseUrl={leaseUrl} />}
+      {leaseUrl && <OrderPreviewButton leaseUrl={leaseUrl} />}
       {leaseUrl2 && <a href={leaseUrl2}>Télécharger le bail</a>}
       {/* mettre tout ça sur une autre page pour que la home soit une home de SEO avec video et argument marketing */}
     </main>
