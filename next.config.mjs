@@ -6,6 +6,9 @@ const nextConfig = {
   //       '/api/downloadDocx': ['./tmp/**/*']
   //     }
   //   }
+  experimental: {
+    missingSuspenseWithCSRBailout: false
+  }
 }
 
 export default nextConfig
