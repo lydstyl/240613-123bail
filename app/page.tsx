@@ -71,11 +71,8 @@ const Home: React.FC<Props> = () => {
       <hr />
       {!leaseUrl2 && (
         <form onSubmit={handleSubmit(onSubmit2)}>
-          <input
-            defaultValue='tenantName'
-            {...(register('tenantName'), { required: true })}
-          />
-          {errors.tenantName && <span>tenantName est requis</span>}
+          <input defaultValue='tenantName' {...register('tenantName')} />
+          {/* {errors.tenantName && <span>tenantName est requis</span>} */}
 
           <input
             defaultValue='lessorName'
