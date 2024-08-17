@@ -25,37 +25,29 @@ const Home: React.FC<Props> = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors }
   } = useForm<Inputs>()
 
   const onSubmit2: SubmitHandler<Inputs> = async (data) => {
-    console.log(data)
-
-    setIsLoading(true)
-    setError(null) // Clear previous errors when a new request starts
-
     try {
+      console.log(data)
+      setIsLoading(true)
+      setError(null) // Clear previous errors when a new request starts
       const response: Response = await fetch('/api/patchLease', {
         method: 'POST',
         headers: {
           Accept: 'application/json'
           // 'Content-Type': 'application/json'
         },
-        // body: Object.fromEntries(formData)
         body: JSON.stringify(data)
+        // body: data
       })
       if (!response.ok) {
         throw new Error('Failed to submit the data. Please try again.')
       }
       const data2 = await response.json()
       setLeaseUrl(data2.url)
-      // // in local storage
-      // if (typeof window !== 'undefined') {
-      //   console.log('localStorage', data.url)
 
-      //   localStorage.setItem(data.url, data.url)
-      // }
       setIsLoading(false)
     } catch (error) {
       setIsLoading(false)
@@ -63,7 +55,12 @@ const Home: React.FC<Props> = () => {
     }
   }
 
-  console.log(watch('tenantName')) // watch input value by passing the name of it
+  if (error) {
+    return <div>{error}</div>
+  }
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
 
   return (
     <main className='p-24'>
@@ -72,7 +69,6 @@ const Home: React.FC<Props> = () => {
       {!leaseUrl2 && (
         <form onSubmit={handleSubmit(onSubmit2)}>
           <input defaultValue='tenantName' {...register('tenantName')} />
-          {/* {errors.tenantName && <span>tenantName est requis</span>} */}
 
           <input
             defaultValue='lessorName'
