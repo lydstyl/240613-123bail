@@ -8,7 +8,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { schema } from '@/_assets/schema'
 
-export type Inputs = z.infer<typeof schema>
 type Props = {
   // leaseUrl: string | null
 }

@@ -31,3 +31,5 @@ export const schema = z.object({
   rentExcludingCharges: z.string(),
   charges: z.string()
 })
+
+export type Inputs = z.infer<typeof schema>
