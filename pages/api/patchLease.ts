@@ -4,7 +4,8 @@ import * as fs from 'fs'
 import path from 'path'
 import { patchDocument, PatchType, IPatch, TextRun } from 'docx'
 import { put } from '@vercel/blob'
-import { schema, Inputs } from '@/app/page'
+import { Inputs } from '@/app/page'
+import { schema } from '@/_assets/schema'
 
 type ResponseData = {
   message: string
