@@ -78,6 +78,8 @@ const Home: React.FC<Props> = () => {
 
       {leaseUrl && <OrderPreviewButton leaseUrl={leaseUrl} />}
       {leaseUrl2 && <a href={leaseUrl2}>Télécharger le bail</a>}
+
+      {leaseUrl && <a href={leaseUrl}>Remove this download dev button</a>}
       {/* mettre tout ça sur une autre page pour que la home soit une home de SEO avec video et argument marketing */}
     </main>
   )
