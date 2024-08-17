@@ -7,14 +7,37 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
-export const mySchema2 = z.object({
-  managerLastName: z.string().min(1, { message: 'Required !!' }),
-  managerFirstName: z.string().min(1, { message: 'Required yé' }),
+export const schema = z.object({
+  companyName: z.string(),
+  officeStreetNumber: z.string(),
+  officeStreetName: z.string(),
+  officeCity: z.string(),
+  siren: z.string(),
 
-  companyName: z.string()
+  managerLastName: z.string(),
+  managerFirstName: z.string().min(1, { message: 'Required yé' }),
+  position: z.string(),
+
+  genderSalutation: z.string(),
+  tenantLastName: z.string(),
+  tenantFirstName: z.string(),
+  dateOfBirth: z.string(),
+  birthCity: z.string(),
+  tenantStreetNumber: z.string(),
+  tenantStreetName: z.string(),
+  tenantCity: z.string(),
+
+  residenceStreetNumber: z.string(),
+  residenceStreetName: z.string(),
+  residenceCity: z.string(),
+  livingArea: z.string(),
+
+  contractEffectiveDate: z.string(),
+  rentExcludingCharges: z.string(),
+  charges: z.string()
 })
 
-export type Inputs = z.infer<typeof mySchema2>
+export type Inputs = z.infer<typeof schema>
 type Props = {
   // leaseUrl: string | null
 }
@@ -31,7 +54,7 @@ const Home: React.FC<Props> = () => {
     handleSubmit,
     formState: { errors }
   } = useForm({
-    resolver: zodResolver(mySchema2)
+    resolver: zodResolver(schema)
   })
 
   const onSubmit = async (data: any) => {
@@ -73,29 +96,82 @@ const Home: React.FC<Props> = () => {
       <hr />
       {!leaseUrl2 && (
         <form onSubmit={handleSubmit(onSubmit)}>
+          <input defaultValue='companyName' {...register('companyName')} />
+          <input
+            defaultValue='officeStreetNumber'
+            {...register('officeStreetNumber', { required: true })}
+          />
+          {errors.officeStreetNumber?.message && (
+            <p>{errors.officeStreetNumber?.message?.toString()}</p>
+          )}
+          <input
+            defaultValue='officeStreetName'
+            {...register('officeStreetName')}
+          />
+          <input defaultValue='officeCity' {...register('officeCity')} />
+          <input defaultValue='siren' {...register('siren')} />
+
+          <hr />
           <input
             defaultValue='managerLastName'
             {...register('managerLastName')}
           />
-
           <input
             defaultValue='managerFirstName'
-            {...register('managerFirstName', { required: true })}
+            {...register('managerFirstName')}
           />
-          {errors.managerFirstName?.message && (
-            <p>{errors.managerFirstName?.message?.toString()}</p>
-          )}
+          <input defaultValue='position' {...register('position')} />
           <hr />
-          <div>
-            <input
-              defaultValue='companyName'
-              {...register('companyName', { required: true })}
-            />
-            {errors.companyName?.message && (
-              <p>{errors.companyName?.message?.toString()}</p>
-            )}
-          </div>
 
+          <hr />
+          <input
+            defaultValue='genderSalutation'
+            {...register('genderSalutation')}
+          />
+          <input
+            defaultValue='tenantLastName'
+            {...register('tenantLastName')}
+          />
+          <input
+            defaultValue='tenantFirstName'
+            {...register('tenantFirstName')}
+          />
+          <input defaultValue='dateOfBirth' {...register('dateOfBirth')} />
+          <input defaultValue='birthCity' {...register('birthCity')} />
+          <input
+            defaultValue='tenantStreetNumber'
+            {...register('tenantStreetNumber')}
+          />
+          <input
+            defaultValue='tenantStreetName'
+            {...register('tenantStreetName')}
+          />
+          <input defaultValue='tenantCity' {...register('tenantCity')} />
+          <hr />
+
+          <hr />
+          <input
+            defaultValue='residenceStreetNumber'
+            {...register('residenceStreetNumber')}
+          />
+          <input
+            defaultValue='residenceStreetName'
+            {...register('residenceStreetName')}
+          />
+          <input defaultValue='residenceCity' {...register('residenceCity')} />
+          <input defaultValue='livingArea' {...register('livingArea')} />
+          <hr />
+
+          <hr />
+          <input
+            defaultValue='contractEffectiveDate'
+            {...register('contractEffectiveDate')}
+          />
+          <input
+            defaultValue='rentExcludingCharges'
+            {...register('rentExcludingCharges')}
+          />
+          <input defaultValue='charges' {...register('charges')} />
           <hr />
 
           <input type='submit' />

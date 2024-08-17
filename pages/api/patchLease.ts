@@ -4,17 +4,12 @@ import * as fs from 'fs'
 import path from 'path'
 import { Paragraph, patchDocument, PatchType, IPatch } from 'docx'
 import { put } from '@vercel/blob'
-import { mySchema2, Inputs } from '@/app/page'
+import { schema, Inputs } from '@/app/page'
 
 type ResponseData = {
   message: string
   url?: string
 }
-
-const schema = z.object({
-  tenantName: z.string(),
-  lessorName: z.string()
-})
 
 const editDocx = async (patches: { readonly [key: string]: IPatch }) => {
   try {
@@ -39,46 +34,59 @@ export default async function handler(
       res.status(405).json({ message: 'Method not allowed' })
       return
     }
-    const parsed = mySchema2.parse(JSON.parse(req.body))
+    const parsed = schema.parse(JSON.parse(req.body))
     console.log('🚀 ~ parsed:', parsed)
     if (!parsed) {
       res.status(400).json({ message: 'Content is required' })
       return
     }
 
-    type Tag = {
-      type: 'file'
-      children: Paragraph[]
-    }
+    // type Tag = {
+    //   type: 'file'
+    //   children: Paragraph[]
+    // }
     type Tags = {
-      // tenantName: IPatch
-      tenantName: Tag
-      lessorName: Tag
-      companyName: Tag
+      // companyName: IPatch,
+      companyName: IPatch
+      officeStreetNumber: IPatch
+      officeStreetName: IPatch
+      officeCity: IPatch
+      siren: IPatch
+
+      managerLastName: IPatch
+      managerFirstName: IPatch
+      position: IPatch
+
+      genderSalutation: IPatch
+      tenantLastName: IPatch
+      tenantFirstName: IPatch
+      dateOfBirth: IPatch
+      birthCity: IPatch
+      tenantStreetNumber: IPatch
+      tenantStreetName: IPatch
+      tenantCity: IPatch
+
+      residenceStreetNumber: IPatch
+      residenceStreetName: IPatch
+      residenceCity: IPatch
+      livingArea: IPatch
+
+      contractEffectiveDate: IPatch
+      rentExcludingCharges: IPatch
+      charges: IPatch
     }
-    // | {}
     const tags: any = {}
-    const children = Object.keys(parsed).forEach((key) => {
+    Object.keys(parsed).forEach((key) => {
       const tag = {
         type: PatchType.DOCUMENT,
         children: [new Paragraph({ text: parsed[key as keyof Inputs] })]
       }
-      // tags[key] = tag
-
       tags[key as keyof Tags] = tag
-
-      // new Paragraph({ text: parsed[key as keyof Inputs] })
     })
 
     const patches: {
       readonly [key: string]: IPatch
-    } = {
-      // my_tag_here: {
-      //   type: PatchType.DOCUMENT,
-      //   children: [new Paragraph({ text: parsed.lessorName })]
-      // }
-      ...tags
-    }
+    } = tags
 
     const doc = await editDocx(patches)
     if (!doc) {
