@@ -4,6 +4,7 @@ import * as fs from 'fs'
 import path from 'path'
 import { Paragraph, patchDocument, PatchType, IPatch } from 'docx'
 import { put } from '@vercel/blob'
+import { mySchema2, Inputs } from '@/app/page'
 
 type ResponseData = {
   message: string
@@ -38,19 +39,45 @@ export default async function handler(
       res.status(405).json({ message: 'Method not allowed' })
       return
     }
-    const parsed = schema.parse(JSON.parse(req.body))
+    const parsed = mySchema2.parse(JSON.parse(req.body))
+    console.log('🚀 ~ parsed:', parsed)
     if (!parsed) {
       res.status(400).json({ message: 'Content is required' })
       return
     }
 
+    type Tag = {
+      type: 'file'
+      children: Paragraph[]
+    }
+    type Tags = {
+      // tenantName: IPatch
+      tenantName: Tag
+      lessorName: Tag
+      companyName: Tag
+    }
+    // | {}
+    const tags: any = {}
+    const children = Object.keys(parsed).forEach((key) => {
+      const tag = {
+        type: PatchType.DOCUMENT,
+        children: [new Paragraph({ text: parsed[key as keyof Inputs] })]
+      }
+      // tags[key] = tag
+
+      tags[key as keyof Tags] = tag
+
+      // new Paragraph({ text: parsed[key as keyof Inputs] })
+    })
+
     const patches: {
       readonly [key: string]: IPatch
     } = {
-      my_tag_here: {
-        type: PatchType.DOCUMENT,
-        children: [new Paragraph({ text: parsed.lessorName })]
-      }
+      // my_tag_here: {
+      //   type: PatchType.DOCUMENT,
+      //   children: [new Paragraph({ text: parsed.lessorName })]
+      // }
+      ...tags
     }
 
     const doc = await editDocx(patches)

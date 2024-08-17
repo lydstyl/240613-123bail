@@ -7,12 +7,14 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
-const mySchema2 = z.object({
-  tenantName: z.string().min(1, { message: 'Required !!' }),
-  lessorName: z.string().min(1, { message: 'Required yé' })
+export const mySchema2 = z.object({
+  managerLastName: z.string().min(1, { message: 'Required !!' }),
+  managerFirstName: z.string().min(1, { message: 'Required yé' }),
+
+  companyName: z.string()
 })
 
-type Inputs = z.infer<typeof mySchema2>
+export type Inputs = z.infer<typeof mySchema2>
 type Props = {
   // leaseUrl: string | null
 }
@@ -71,15 +73,30 @@ const Home: React.FC<Props> = () => {
       <hr />
       {!leaseUrl2 && (
         <form onSubmit={handleSubmit(onSubmit)}>
-          <input defaultValue='tenantName' {...register('tenantName')} />
+          <input
+            defaultValue='managerLastName'
+            {...register('managerLastName')}
+          />
 
           <input
-            defaultValue='lessorName'
-            {...register('lessorName', { required: true })}
+            defaultValue='managerFirstName'
+            {...register('managerFirstName', { required: true })}
           />
-          {errors.lessorName?.message && (
-            <p>{errors.lessorName?.message?.toString()}</p>
+          {errors.managerFirstName?.message && (
+            <p>{errors.managerFirstName?.message?.toString()}</p>
           )}
+          <hr />
+          <div>
+            <input
+              defaultValue='companyName'
+              {...register('companyName', { required: true })}
+            />
+            {errors.companyName?.message && (
+              <p>{errors.companyName?.message?.toString()}</p>
+            )}
+          </div>
+
+          <hr />
 
           <input type='submit' />
         </form>
