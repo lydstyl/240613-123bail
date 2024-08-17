@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { z } from 'zod'
 import * as fs from 'fs'
 import path from 'path'
-import { Paragraph, patchDocument, PatchType, IPatch } from 'docx'
+import { patchDocument, PatchType, IPatch, TextRun } from 'docx'
 import { put } from '@vercel/blob'
 import { schema, Inputs } from '@/app/page'
 
@@ -41,10 +41,6 @@ export default async function handler(
       return
     }
 
-    // type Tag = {
-    //   type: 'file'
-    //   children: Paragraph[]
-    // }
     type Tags = {
       // companyName: IPatch,
       companyName: IPatch
@@ -78,8 +74,10 @@ export default async function handler(
     const tags: any = {}
     Object.keys(parsed).forEach((key) => {
       const tag = {
-        type: PatchType.DOCUMENT,
-        children: [new Paragraph({ text: parsed[key as keyof Inputs] })]
+        // type: PatchType.DOCUMENT,
+        type: PatchType.PARAGRAPH,
+        // children: [new Paragraph({ text: parsed[key as keyof Inputs] })]
+        children: [new TextRun({ text: parsed[key as keyof Inputs] })]
       }
       tags[key as keyof Tags] = tag
     })
