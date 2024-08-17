@@ -10,12 +10,14 @@ import { z } from 'zod'
 export const schema = z.object({
   companyName: z.string(),
   officeStreetNumber: z.string(),
-  officeStreetName: z.string(),
+  officeStreetName: z
+    .string()
+    .min(1, { message: 'Ce champs est requis mon coco !' }),
   officeCity: z.string(),
   siren: z.string(),
 
   managerLastName: z.string(),
-  managerFirstName: z.string().min(1, { message: 'Required yé' }),
+  managerFirstName: z.string(),
   position: z.string(),
 
   genderSalutation: z.string(),
@@ -108,6 +110,9 @@ const Home: React.FC<Props> = () => {
             defaultValue='officeStreetName'
             {...register('officeStreetName')}
           />
+          {errors.officeStreetName?.message && (
+            <p>{errors.officeStreetName?.message?.toString()}</p>
+          )}
           <input defaultValue='officeCity' {...register('officeCity')} />
           <input defaultValue='siren' {...register('siren')} />
 
