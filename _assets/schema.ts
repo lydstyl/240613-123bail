@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
-export const schema = z.object({
-  companyName: z.string(),
+export const formSchema = z.object({
+  companyName: z.string().min(2).max(50),
   officeStreetNumber: z.string(),
   officeStreetName: z
     .string()
@@ -32,4 +32,4 @@ export const schema = z.object({
   charges: z.string()
 })
 
-export type Inputs = z.infer<typeof schema>
+export type Inputs = z.infer<typeof formSchema>
