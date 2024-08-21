@@ -125,7 +125,7 @@ const Home: React.FC<Props> = () => {
                           <Input placeholder='companyName' {...field} />
                         </FormControl>
                         <FormDescription>
-                          C'est le nom de votre SCI ou entreprise bailleur.
+                          Le nom de votre SCI ou entreprise bailleur.
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
@@ -199,7 +199,7 @@ const Home: React.FC<Props> = () => {
               </AccordionItem>
               <AccordionItem value='item-2'>
                 <AccordionTrigger>
-                  Manageur de l'entreprise bailleur
+                  {"Manageur de l'entreprise bailleur"}
                 </AccordionTrigger>
                 <AccordionContent>
                   <FormField
@@ -346,7 +346,7 @@ const Home: React.FC<Props> = () => {
                           <Input placeholder='tenantStreetNumber' {...field} />
                         </FormControl>
                         <FormDescription>
-                          Entrez le numéro de rue de l'adresse du locataire.
+                          {"Entrez le numéro de rue de l'adresse du locataire."}
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
@@ -362,7 +362,7 @@ const Home: React.FC<Props> = () => {
                           <Input placeholder='tenantStreetName' {...field} />
                         </FormControl>
                         <FormDescription>
-                          Entrez le nom de la rue de l'adresse du locataire.
+                          {"Entrez le nom de la rue de l'adresse du locataire."}
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
@@ -378,8 +378,9 @@ const Home: React.FC<Props> = () => {
                           <Input placeholder='tenantCity' {...field} />
                         </FormControl>
                         <FormDescription>
-                          Entrez la ville où réside le locataire avant l'entrée
-                          dans le logement à louer.
+                          {
+                            "Entrez la ville où réside le locataire avant l'entrée dans le logement à louer."
+                          }
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
