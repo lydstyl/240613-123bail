@@ -18,6 +18,12 @@ import {
   FormMessage
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger
+} from '@/components/ui/accordion'
 
 type Props = {
   // leaseUrl: string | null
@@ -101,395 +107,431 @@ const Home: React.FC<Props> = () => {
     <main className='p-24'>
       <h1 className='text-2xl'>123 bail !</h1>
 
-      <hr />
-
+      <hr className='border-4 border-blue-500' />
       {!leaseUrl2 && (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
-            <FormField
-              control={form.control}
-              name='companyName'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Nom de la SCI</FormLabel>
-                  <FormControl>
-                    <Input placeholder='companyName' {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    C'est le nom de votre SCI ou entreprise bailleur.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='officeStreetNumber'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Numéro de rue</FormLabel>
-                  <FormControl>
-                    <Input placeholder='officeStreetNumber' {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Entrez le numéro de rue de la SCI.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='officeStreetName'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Nom de la rue</FormLabel>
-                  <FormControl>
-                    <Input placeholder='officeStreetName' {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Entrez le nom de la rue de la SCI.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='officeCity'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Ville</FormLabel>
-                  <FormControl>
-                    <Input placeholder='officeCity' {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Entrez la ville où se trouve la SCI.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='siren'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Numéro SIREN</FormLabel>
-                  <FormControl>
-                    <Input placeholder='siren' {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Entrez le numéro SIREN de la société.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <Accordion type='single' collapsible className='w-full'>
+              <AccordionItem value='item-1'>
+                <AccordionTrigger>Entreprise bailleur</AccordionTrigger>
+                <AccordionContent>
+                  <FormField
+                    control={form.control}
+                    name='companyName'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Nom de la SCI</FormLabel>
+                        <FormControl>
+                          <Input placeholder='companyName' {...field} />
+                        </FormControl>
+                        <FormDescription>
+                          C'est le nom de votre SCI ou entreprise bailleur.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='officeStreetNumber'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Numéro de rue</FormLabel>
+                        <FormControl>
+                          <Input placeholder='officeStreetNumber' {...field} />
+                        </FormControl>
+                        <FormDescription>
+                          Entrez le numéro de rue de la SCI.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='officeStreetName'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Nom de la rue</FormLabel>
+                        <FormControl>
+                          <Input placeholder='officeStreetName' {...field} />
+                        </FormControl>
+                        <FormDescription>
+                          Entrez le nom de la rue de la SCI.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='officeCity'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Ville</FormLabel>
+                        <FormControl>
+                          <Input placeholder='officeCity' {...field} />
+                        </FormControl>
+                        <FormDescription>
+                          Entrez la ville où se trouve la SCI.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='siren'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Numéro SIREN</FormLabel>
+                        <FormControl>
+                          <Input placeholder='siren' {...field} />
+                        </FormControl>
+                        <FormDescription>
+                          Entrez le numéro SIREN de la société.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value='item-2'>
+                <AccordionTrigger>
+                  Manageur de l'entreprise bailleur
+                </AccordionTrigger>
+                <AccordionContent>
+                  <FormField
+                    control={form.control}
+                    name='managerLastName'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Nom du manageur</FormLabel>
+                        <FormControl>
+                          <Input placeholder='managerLastName' {...field} />
+                        </FormControl>
+                        <FormDescription>
+                          Entrez le nom de famille du manageur de la SCI.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='managerFirstName'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Prénom du manageur</FormLabel>
+                        <FormControl>
+                          <Input placeholder='managerFirstName' {...field} />
+                        </FormControl>
+                        <FormDescription>
+                          Entrez le prénom du manageur de la SCI.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='position'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Position du manageur</FormLabel>
+                        <FormControl>
+                          <Input placeholder='position' {...field} />
+                        </FormControl>
+                        <FormDescription>
+                          Entrez la position du manageur dans la SCI.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value='item-3'>
+                <AccordionTrigger>Locataire</AccordionTrigger>
+                <AccordionContent>
+                  <FormField
+                    control={form.control}
+                    name='genderSalutation'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Civilité</FormLabel>
+                        <FormControl>
+                          <Input placeholder='genderSalutation' {...field} />
+                        </FormControl>
+                        <FormDescription>
+                          Entrez la salutation appropriée (Monsieur, Madame,
+                          etc.) du locataire.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='tenantLastName'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Nom du locataire</FormLabel>
+                        <FormControl>
+                          <Input placeholder='tenantLastName' {...field} />
+                        </FormControl>
+                        <FormDescription>
+                          Entrez le nom de famille du locataire.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='tenantFirstName'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Prénom du locataire</FormLabel>
+                        <FormControl>
+                          <Input placeholder='tenantFirstName' {...field} />
+                        </FormControl>
+                        <FormDescription>
+                          Entrez le prénom du locataire.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='dateOfBirth'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Date de naissance</FormLabel>
+                        <FormControl>
+                          <Input placeholder='dateOfBirth' {...field} />
+                        </FormControl>
+                        <FormDescription>
+                          Entrez la date de naissance du locataire.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='birthCity'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Ville de naissance</FormLabel>
+                        <FormControl>
+                          <Input placeholder='birthCity' {...field} />
+                        </FormControl>
+                        <FormDescription>
+                          Entrez la ville de naissance du locataire.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='tenantStreetNumber'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Numéro de rue du locataire</FormLabel>
+                        <FormControl>
+                          <Input placeholder='tenantStreetNumber' {...field} />
+                        </FormControl>
+                        <FormDescription>
+                          Entrez le numéro de rue de l'adresse du locataire.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='tenantStreetName'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Nom de rue du locataire</FormLabel>
+                        <FormControl>
+                          <Input placeholder='tenantStreetName' {...field} />
+                        </FormControl>
+                        <FormDescription>
+                          Entrez le nom de la rue de l'adresse du locataire.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='tenantCity'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Ville du locataire</FormLabel>
+                        <FormControl>
+                          <Input placeholder='tenantCity' {...field} />
+                        </FormControl>
+                        <FormDescription>
+                          Entrez la ville où réside le locataire avant l'entrée
+                          dans le logement à louer.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value='item-4'>
+                <AccordionTrigger>Résidence louée</AccordionTrigger>
+                <AccordionContent>
+                  <FormField
+                    control={form.control}
+                    name='residenceStreetNumber'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Numéro de rue de la résidence</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder='residenceStreetNumber'
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormDescription>
+                          Entrez le numéro de rue de la résidence à louer.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='residenceStreetName'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Nom de rue de la résidence</FormLabel>
+                        <FormControl>
+                          <Input placeholder='residenceStreetName' {...field} />
+                        </FormControl>
+                        <FormDescription>
+                          Entrez le nom de la rue de la résidence à louer.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='residenceCity'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Ville de la résidence</FormLabel>
+                        <FormControl>
+                          <Input placeholder='residenceCity' {...field} />
+                        </FormControl>
+                        <FormDescription>
+                          Entrez la ville où se trouve la résidence à louer.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='livingArea'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Surface habitable</FormLabel>
+                        <FormControl>
+                          <Input placeholder='livingArea' {...field} />
+                        </FormControl>
+                        <FormDescription>
+                          Entrez la surface habitable de la résidence à louer.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value='item-5'>
+                <AccordionTrigger>Contrat</AccordionTrigger>
+                <AccordionContent>
+                  <FormField
+                    control={form.control}
+                    name='contractEffectiveDate'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Date de début du contrat</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder='contractEffectiveDate'
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormDescription>
+                          Entrez la date de début du contrat.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='rentExcludingCharges'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Loyer hors charges</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder='rentExcludingCharges'
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormDescription>
+                          Entrez le montant du loyer hors charges.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='charges'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Charges</FormLabel>
+                        <FormControl>
+                          <Input placeholder='charges' {...field} />
+                        </FormControl>
+                        <FormDescription>
+                          Entrez le montant des charges.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
 
-            <FormField
-              control={form.control}
-              name='managerLastName'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Nom du manageur</FormLabel>
-                  <FormControl>
-                    <Input placeholder='managerLastName' {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Entrez le nom de famille du manageur de la SCI.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='managerFirstName'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Prénom du manageur</FormLabel>
-                  <FormControl>
-                    <Input placeholder='managerFirstName' {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Entrez le prénom du manageur de la SCI.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='position'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Position du manageur</FormLabel>
-                  <FormControl>
-                    <Input placeholder='position' {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Entrez la position du manageur dans la SCI.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <hr className='border-4 border-blue-500' />
 
-            <FormField
-              control={form.control}
-              name='genderSalutation'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Civilité</FormLabel>
-                  <FormControl>
-                    <Input placeholder='genderSalutation' {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Entrez la salutation appropriée (Monsieur, Madame, etc.) du
-                    locataire.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='tenantLastName'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Nom du locataire</FormLabel>
-                  <FormControl>
-                    <Input placeholder='tenantLastName' {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Entrez le nom de famille du locataire.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='tenantFirstName'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Prénom du locataire</FormLabel>
-                  <FormControl>
-                    <Input placeholder='tenantFirstName' {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Entrez le prénom du locataire.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='dateOfBirth'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Date de naissance</FormLabel>
-                  <FormControl>
-                    <Input placeholder='dateOfBirth' {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Entrez la date de naissance du locataire.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='birthCity'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Ville de naissance</FormLabel>
-                  <FormControl>
-                    <Input placeholder='birthCity' {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Entrez la ville de naissance du locataire.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='tenantStreetNumber'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Numéro de rue du locataire</FormLabel>
-                  <FormControl>
-                    <Input placeholder='tenantStreetNumber' {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Entrez le numéro de rue de l'adresse du locataire.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='tenantStreetName'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Nom de rue du locataire</FormLabel>
-                  <FormControl>
-                    <Input placeholder='tenantStreetName' {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Entrez le nom de la rue de l'adresse du locataire.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='tenantCity'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Ville du locataire</FormLabel>
-                  <FormControl>
-                    <Input placeholder='tenantCity' {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Entrez la ville où réside le locataire avant l'entrée dans
-                    le logement à louer.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name='residenceStreetNumber'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Numéro de rue de la résidence</FormLabel>
-                  <FormControl>
-                    <Input placeholder='residenceStreetNumber' {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Entrez le numéro de rue de la résidence à louer.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='residenceStreetName'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Nom de rue de la résidence</FormLabel>
-                  <FormControl>
-                    <Input placeholder='residenceStreetName' {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Entrez le nom de la rue de la résidence à louer.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='residenceCity'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Ville de la résidence</FormLabel>
-                  <FormControl>
-                    <Input placeholder='residenceCity' {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Entrez la ville où se trouve la résidence à louer.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='livingArea'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Surface habitable</FormLabel>
-                  <FormControl>
-                    <Input placeholder='livingArea' {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Entrez la surface habitable de la résidence à louer.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name='contractEffectiveDate'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Date de début du contrat</FormLabel>
-                  <FormControl>
-                    <Input placeholder='contractEffectiveDate' {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Entrez la date de début du contrat.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='rentExcludingCharges'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Loyer hors charges</FormLabel>
-                  <FormControl>
-                    <Input placeholder='rentExcludingCharges' {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Entrez le montant du loyer hors charges.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='charges'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Charges</FormLabel>
-                  <FormControl>
-                    <Input placeholder='charges' {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Entrez le montant des charges.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
             <Button type='submit'>Submit</Button>
           </form>
         </Form>
       )}
 
-      <hr />
+      {/* <hr className='border-4 border-blue-500' /> */}
 
       {leaseUrl && <OrderPreviewButton leaseUrl={leaseUrl} />}
       {leaseUrl2 && <a href={leaseUrl2}>Télécharger le bail</a>}
-      {leaseUrl && <a href={leaseUrl}>Remove this download dev button</a>}
+      {/* {leaseUrl && <a href={leaseUrl}>Remove this download dev button</a>} */}
     </main>
   )
 }
