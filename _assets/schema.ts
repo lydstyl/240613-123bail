@@ -10,7 +10,7 @@ export const schema = z.object({
   siren: z.string(),
 
   managerLastName: z.string(),
-  managerFirstName: z.string(),
+  managerFirstName: z.string().min(2).max(50),
   position: z.string(),
 
   genderSalutation: z.string(),
