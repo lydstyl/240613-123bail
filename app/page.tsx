@@ -107,7 +107,7 @@ const Home: React.FC<Props> = () => {
     <main className='p-24'>
       <h1 className='text-2xl'>123 bail !</h1>
 
-      <hr className='border-4 border-blue-500' />
+      <hr className='border-4 border-primary' />
       {!leaseUrl2 && (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
@@ -521,14 +521,12 @@ const Home: React.FC<Props> = () => {
               </AccordionItem>
             </Accordion>
 
-            <hr className='border-4 border-blue-500' />
+            <hr className='border-4 border-primary' />
 
             <Button type='submit'>Submit</Button>
           </form>
         </Form>
       )}
-
-      {/* <hr className='border-4 border-blue-500' /> */}
 
       {leaseUrl && <OrderPreviewButton leaseUrl={leaseUrl} />}
       {leaseUrl2 && <a href={leaseUrl2}>Télécharger le bail</a>}
