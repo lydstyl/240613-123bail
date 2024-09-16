@@ -6,8 +6,10 @@ import OrderPreviewButton from '@/components/OrderPreviewButton'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { formSchema } from '@/_assets/schema'
+import { formDefaultValues, formSchema } from '@/_assets/schema'
 import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
+
 import {
   Form,
   FormControl,
@@ -24,6 +26,7 @@ import {
   AccordionItem,
   AccordionTrigger
 } from '@/components/ui/accordion'
+import Link from 'next/link'
 
 type Props = {
   // leaseUrl: string | null
@@ -39,35 +42,7 @@ const Home: React.FC<Props> = () => {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      companyName: 'LOGIS ANGE',
-      officeStreetNumber: '12',
-      officeStreetName: 'Rue des Fleurs',
-      officeCity: 'Paris',
-      siren: '123456789',
-
-      managerLastName: 'Dupont',
-      managerFirstName: 'Jean',
-      position: 'gérant',
-
-      genderSalutation: 'Monsieur',
-      tenantLastName: 'Martin',
-      tenantFirstName: 'Pierre',
-      dateOfBirth: '14/05/1994',
-      birthCity: 'Lyon',
-      tenantStreetNumber: '5',
-      tenantStreetName: 'Avenue de la Liberté',
-      tenantCity: 'Marseille',
-
-      residenceStreetNumber: '8',
-      residenceStreetName: 'Boulevard Saint-Germain',
-      residenceCity: 'Paris',
-      livingArea: '75',
-
-      contractEffectiveDate: '01/09/2024',
-      rentExcludingCharges: '1000',
-      charges: '100'
-    }
+    defaultValues: formDefaultValues
   })
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
@@ -113,8 +88,27 @@ const Home: React.FC<Props> = () => {
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
             <Accordion type='single' collapsible className='w-full'>
               <AccordionItem value='item-1'>
-                <AccordionTrigger>Entreprise bailleur</AccordionTrigger>
+                <AccordionTrigger>Bailleur</AccordionTrigger>
                 <AccordionContent>
+                  {/* <FormField
+                    control={form.control}
+                    name='individual'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Checkbox {...field} />
+                        </FormControl>
+                        <FormLabel className='pl-2'>
+                          Je suis un particulier
+                        </FormLabel>
+                        <FormDescription>
+                          Si vous êtes une SCI ou autre société ne coché pas
+                          cette case.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  /> */}
                   <FormField
                     control={form.control}
                     name='companyName'
@@ -195,13 +189,6 @@ const Home: React.FC<Props> = () => {
                       </FormItem>
                     )}
                   />
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value='item-2'>
-                <AccordionTrigger>
-                  {"Manageur de l'entreprise bailleur"}
-                </AccordionTrigger>
-                <AccordionContent>
                   <FormField
                     control={form.control}
                     name='managerLastName'
@@ -529,7 +516,14 @@ const Home: React.FC<Props> = () => {
       )}
 
       {leaseUrl && <OrderPreviewButton leaseUrl={leaseUrl} />}
-      {leaseUrl2 && <a href={leaseUrl2}>Télécharger le bail</a>}
+      {leaseUrl2 && (
+        <>
+          <a href={leaseUrl2}>Télécharger le bail</a>
+          <div>
+            <Link href='/'>Créer un nouveau bail.</Link>
+          </div>
+        </>
+      )}
       {/* {leaseUrl && <a href={leaseUrl}>Remove this download dev button</a>} */}
     </main>
   )
