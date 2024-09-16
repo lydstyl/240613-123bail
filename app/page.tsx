@@ -6,9 +6,22 @@ import OrderPreviewButton from '@/components/OrderPreviewButton'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { formDefaultValues, formSchema } from '@/_assets/schema'
+import { formDefaultValues, companyFormSchema } from '@/_assets/schema'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
+
+import { Progress } from '@/components/ui/progress'
+
+export function ProgressDemo() {
+  const [progress, setProgress] = React.useState(13)
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => setProgress(66), 500)
+    return () => clearTimeout(timer)
+  }, [])
+
+  return <Progress value={progress} />
+}
 
 import {
   Form,
@@ -40,12 +53,12 @@ const Home: React.FC<Props> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof companyFormSchema>>({
+    resolver: zodResolver(companyFormSchema),
     defaultValues: formDefaultValues
   })
 
-  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+  const onSubmit = async (data: z.infer<typeof companyFormSchema>) => {
     try {
       console.log(data)
       setIsLoading(true)
@@ -80,9 +93,10 @@ const Home: React.FC<Props> = () => {
 
   return (
     <main className='p-24'>
+      <ProgressDemo />
       <h1 className='text-2xl'>123 bail !</h1>
-
       <hr className='border-4 border-primary' />
+
       {!leaseUrl2 && (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>

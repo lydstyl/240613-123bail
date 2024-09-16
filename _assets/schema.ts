@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 export const chooseLessorType = z.object({
-  individual: z.boolean()
+  isLessorACompany: z.boolean()
 })
 export const individualLessorSchema = z.object({
   genderSalutation: z.string(),
@@ -50,11 +50,11 @@ export const contratSchema = z.object({
   charges: z.string()
 })
 
-export const formSchema = z.union([
-  companyLessorSchema,
-  tenantSchema,
-  residenceSchema,
-  contratSchema
+const restFormSchema = z.union([tenantSchema, residenceSchema, contratSchema])
+export const companyFormSchema = z.union([companyLessorSchema, restFormSchema])
+export const individualFormSchema = z.union([
+  individualLessorSchema,
+  restFormSchema
 ])
 
 export const formDefaultValues = {
@@ -89,4 +89,4 @@ export const formDefaultValues = {
   charges: '100'
 }
 
-export type Inputs = z.infer<typeof formSchema>
+// export type Inputs = z.infer<typeof formSchema>
