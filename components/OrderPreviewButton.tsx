@@ -1,5 +1,6 @@
 import React from 'react'
 import { loadStripe } from '@stripe/stripe-js'
+import { Button } from './ui/button'
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -29,9 +30,9 @@ const OrderPreviewButton: React.FC<Props> = ({ leaseUrl }) => {
   return (
     <form action={`/api/checkout_sessions?leaseUrl=${leaseUrl}`} method='POST'>
       <section>
-        <button type='submit' role='link'>
+        <Button type='submit' role='link'>
           Obtenir votre bail contre 10 €
-        </button>
+        </Button>
         {/* <pre>
           <code>{JSON.stringify(leaseUrl, null, 2)}</code>
         </pre> */}
