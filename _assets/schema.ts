@@ -50,6 +50,10 @@ const arrayToCreateTags = [
   ...residenceAccordionItem.fields,
   ...tenantAccordionItem.fields
 ]
+// console.log(
+//   '🚀 ~ arrayToCreateTags:',
+//   arrayToCreateTags.map((item) => item.name).join('}} {{')
+// )
 export type Tags = {
   [K in (typeof arrayToCreateTags)[number]['name']]: IPatch
 }

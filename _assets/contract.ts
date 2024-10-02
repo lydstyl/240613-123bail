@@ -27,6 +27,15 @@ export const contractAccordionItem = {
       defaultValue: '60',
       schema: z.string(),
       description: 'Entrez les charges.'
+    },
+    {
+      name: 'contractProRataRent',
+      label: 'Prorata de loyer',
+      placeholder: '420',
+      defaultValue: '420',
+      schema: z.string().optional(),
+      description:
+        'Indiquez le montant du prorata de loyer pour un emménagement en cours de mois (le cas échéant).'
     }
   ]
 }
