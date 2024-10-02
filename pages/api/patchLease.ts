@@ -1,10 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { z } from 'zod'
 import * as fs from 'fs'
 import path from 'path'
 import { patchDocument, PatchType, IPatch, TextRun } from 'docx'
 import { put } from '@vercel/blob'
-import { companyFormSchema, Inputs } from '@/_assets/schema'
+import { individualFormSchema, IndividualForm } from '@/_assets/schema'
+import { Tags } from '@/_assets/schema'
 
 type ResponseData = {
   message: string
@@ -34,50 +34,50 @@ export default async function handler(
       res.status(405).json({ message: 'Method not allowed' })
       return
     }
-    const parsed = companyFormSchema.parse(JSON.parse(req.body))
+    const parsed = individualFormSchema.parse(JSON.parse(req.body))
     console.log('🚀 ~ parsed:', parsed)
     if (!parsed) {
       res.status(400).json({ message: 'Content is required' })
       return
     }
 
-    type Tags = {
-      // companyName: IPatch,
-      companyName: IPatch
-      officeStreetNumber: IPatch
-      officeStreetName: IPatch
-      officeCity: IPatch
-      siren: IPatch
+    // type Tags = {
+    //   // companyName: IPatch,
+    //   companyName: IPatch
+    //   officeStreetNumber: IPatch
+    //   officeStreetName: IPatch
+    //   officeCity: IPatch
+    //   siren: IPatch
 
-      managerLastName: IPatch
-      managerFirstName: IPatch
-      position: IPatch
+    //   managerLastName: IPatch
+    //   managerFirstName: IPatch
+    //   position: IPatch
 
-      genderSalutation: IPatch
-      tenantLastName: IPatch
-      tenantFirstName: IPatch
-      dateOfBirth: IPatch
-      birthCity: IPatch
-      tenantStreetNumber: IPatch
-      tenantStreetName: IPatch
-      tenantCity: IPatch
+    //   genderSalutation: IPatch
+    //   tenantLastName: IPatch
+    //   tenantFirstName: IPatch
+    //   dateOfBirth: IPatch
+    //   birthCity: IPatch
+    //   tenantStreetNumber: IPatch
+    //   tenantStreetName: IPatch
+    //   tenantCity: IPatch
 
-      residenceStreetNumber: IPatch
-      residenceStreetName: IPatch
-      residenceCity: IPatch
-      livingArea: IPatch
+    //   residenceStreetNumber: IPatch
+    //   residenceStreetName: IPatch
+    //   residenceCity: IPatch
+    //   livingArea: IPatch
 
-      contractEffectiveDate: IPatch
-      rentExcludingCharges: IPatch
-      charges: IPatch
-    }
+    //   contractEffectiveDate: IPatch
+    //   rentExcludingCharges: IPatch
+    //   charges: IPatch
+    // }
     const tags: any = {}
     Object.keys(parsed).forEach((key) => {
       const tag = {
         // type: PatchType.DOCUMENT,
         type: PatchType.PARAGRAPH,
         // children: [new Paragraph({ text: parsed[key as keyof Inputs] })]
-        children: [new TextRun({ text: parsed[key as keyof Inputs] })]
+        children: [new TextRun({ text: parsed[key as keyof IndividualForm] })]
       }
       tags[key as keyof Tags] = tag
     })
