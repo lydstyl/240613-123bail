@@ -75,7 +75,7 @@ export const individualLessorAccordionItem = {
       placeholder: 'Raismes',
       defaultValue: 'Raismes',
       schema: z.string(),
-      description: 'Entrez la ville du bailleur.'
+      description: 'Entrez la ville où habite le bailleur.'
     }
   ]
 }
