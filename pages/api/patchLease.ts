@@ -4,7 +4,7 @@ import * as fs from 'fs'
 import path from 'path'
 import { patchDocument, PatchType, IPatch, TextRun } from 'docx'
 import { put } from '@vercel/blob'
-import { formSchema, Inputs } from '@/_assets/schema'
+import { companyFormSchema, Inputs } from '@/_assets/schema'
 
 type ResponseData = {
   message: string
@@ -34,7 +34,7 @@ export default async function handler(
       res.status(405).json({ message: 'Method not allowed' })
       return
     }
-    const parsed = formSchema.parse(JSON.parse(req.body))
+    const parsed = companyFormSchema.parse(JSON.parse(req.body))
     console.log('🚀 ~ parsed:', parsed)
     if (!parsed) {
       res.status(400).json({ message: 'Content is required' })

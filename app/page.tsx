@@ -10,19 +10,6 @@ import { formDefaultValues, companyFormSchema } from '@/_assets/schema'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 
-import { Progress } from '@/components/ui/progress'
-
-export function ProgressDemo() {
-  const [progress, setProgress] = React.useState(13)
-
-  React.useEffect(() => {
-    const timer = setTimeout(() => setProgress(66), 500)
-    return () => clearTimeout(timer)
-  }, [])
-
-  return <Progress value={progress} />
-}
-
 import {
   Form,
   FormControl,
@@ -40,6 +27,7 @@ import {
   AccordionTrigger
 } from '@/components/ui/accordion'
 import Link from 'next/link'
+import ProgressDemo from '@/components/ProgressDemo'
 
 type Props = {
   // leaseUrl: string | null

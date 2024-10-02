@@ -89,4 +89,4 @@ export const formDefaultValues = {
   charges: '100'
 }
 
-// export type Inputs = z.infer<typeof formSchema>
+export type Inputs = z.infer<typeof companyFormSchema>
