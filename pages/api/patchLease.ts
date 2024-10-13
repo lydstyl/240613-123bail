@@ -10,15 +10,47 @@ type ResponseData = {
   message: string
   url?: string
 }
+// https://docx.js.org/#/usage/patcher
+
+// interface Patch {
+//   type: PatchType
+//   children: FileChild[] | ParagraphChild[]
+// }
+
+// const editDocx = async (patches: { readonly [key: string]: IPatch }) => {
+//   try {
+//     const doc = await patchDocument(
+//       fs.readFileSync(path.join(process.cwd(), '_assets', 'template.docx')),
+//       {
+//         // patches
+
+//         //   "patch1": {
+//         //     type: "PARAGRAPH", // Patch type can be either "DOCUMENT" or "PARAGRAPH"
+//         //     children: [
+//         //         { type: "Text", content: "This is some new paragraph text." },
+//         //         { type: "Image", content: "image-url-or-path" }
+//         //     ]
+//         // },
+//         // "patch2": {
+//         //     type: "DOCUMENT", // Here we are patching at the document level
+//         //     children: [
+//         //         { type: "Paragraph", content: "This is an entire new paragraph." },
+//         //         { type: "Table", content: "Table data or structure" }
+//         //     ]
+//         // }
+//       }
+//     )
+//     return doc
+//   }
 
 const editDocx = async (patches: { readonly [key: string]: IPatch }) => {
   try {
-    const doc = await patchDocument(
-      fs.readFileSync(path.join(process.cwd(), '_assets', 'template.docx')),
-      {
-        patches
-      }
-    )
+    const doc = await patchDocument({
+      outputType: 'arraybuffer',
+      data: 'data',
+      patches,
+      keepOriginalStyles: true
+    })
     return doc
   } catch (error) {
     console.error(`Error: ${error}`)
@@ -91,7 +123,7 @@ export default async function handler(
       throw new Error('Failed to generate the document')
     }
 
-    const buffer = Buffer.from(doc)
+    const buffer = Buffer.from(new Uint8Array(doc as ArrayBuffer))
     const fileName = 'bail.docx'
     const filePath = path.resolve('/tmp', fileName)
 

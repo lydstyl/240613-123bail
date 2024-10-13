@@ -141,7 +141,7 @@ const Home: React.FC<Props> = () => {
           </div>
         </>
       )}
-      {/* {leaseUrl && <a href={leaseUrl}>Remove this download dev button</a>} */}
+      {leaseUrl && <a href={leaseUrl}>Remove this download dev button</a>}
     </main>
   )
 }
