@@ -10,44 +10,16 @@ type ResponseData = {
   message: string
   url?: string
 }
-// https://docx.js.org/#/usage/patcher
 
-// interface Patch {
-//   type: PatchType
-//   children: FileChild[] | ParagraphChild[]
-// }
-
-// const editDocx = async (patches: { readonly [key: string]: IPatch }) => {
-//   try {
-//     const doc = await patchDocument(
-//       fs.readFileSync(path.join(process.cwd(), '_assets', 'template.docx')),
-//       {
-//         // patches
-
-//         //   "patch1": {
-//         //     type: "PARAGRAPH", // Patch type can be either "DOCUMENT" or "PARAGRAPH"
-//         //     children: [
-//         //         { type: "Text", content: "This is some new paragraph text." },
-//         //         { type: "Image", content: "image-url-or-path" }
-//         //     ]
-//         // },
-//         // "patch2": {
-//         //     type: "DOCUMENT", // Here we are patching at the document level
-//         //     children: [
-//         //         { type: "Paragraph", content: "This is an entire new paragraph." },
-//         //         { type: "Table", content: "Table data or structure" }
-//         //     ]
-//         // }
-//       }
-//     )
-//     return doc
-//   }
-
-const editDocx = async (patches: { readonly [key: string]: IPatch }) => {
+const editDocx = async (patches: {
+  readonly [key: string]: IPatch
+}): Promise<Uint8Array | undefined> => {
   try {
     const doc = await patchDocument({
-      outputType: 'arraybuffer',
-      data: 'data',
+      outputType: 'uint8array',
+      data: fs.readFileSync(
+        path.join(process.cwd(), '_assets', 'template.docx')
+      ), // InputDataType: Buffer | string | number[] | Uint8Array | ArrayBuffer | Blob | NodeJS.ReadableStream
       patches,
       keepOriginalStyles: true
     })
