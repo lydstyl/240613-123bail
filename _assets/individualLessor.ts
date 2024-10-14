@@ -51,7 +51,7 @@ export const individualLessorAccordionItem = {
       placeholder: '5',
       defaultValue: '5',
       schema: z.string(),
-      description: 'Entrez le numéro de rue du bailleur.'
+      description: 'Entrez le numéro de rue où habite le bailleur.'
     },
     {
       name: 'lessorStreetName',
@@ -59,7 +59,7 @@ export const individualLessorAccordionItem = {
       placeholder: 'Avenue de la Liberté',
       defaultValue: 'Avenue de la Liberté',
       schema: z.string(),
-      description: 'Entrez le nom de rue du bailleur.'
+      description: 'Entrez le nom de rue où habite le bailleur.'
     },
     {
       name: 'lessorPostalCode',
@@ -67,7 +67,7 @@ export const individualLessorAccordionItem = {
       placeholder: '59590',
       defaultValue: '59590',
       schema: z.string(),
-      description: 'Entrez le code postal du bailleur.'
+      description: 'Entrez le code postal où habite le bailleur.'
     },
     {
       name: 'lessorCity',

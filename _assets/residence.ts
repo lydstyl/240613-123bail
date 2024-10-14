@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 // RESIDENCE
 export const residenceAccordionItem = {
-  accordionTrigger: 'Résidence louée',
+  accordionTrigger: 'Résidence à louer',
   fields: [
     {
       name: 'residenceStreetNumber',
@@ -10,7 +10,7 @@ export const residenceAccordionItem = {
       placeholder: '8',
       defaultValue: '8',
       schema: z.string(),
-      description: 'Entrez le numéro de rue de la résidence.'
+      description: 'Entrez le numéro de rue de la résidence à louer.'
     },
     {
       name: 'residenceStreetName',
@@ -18,7 +18,7 @@ export const residenceAccordionItem = {
       placeholder: 'Boulevard Saint-Germain',
       defaultValue: 'Boulevard Saint-Germain',
       schema: z.string(),
-      description: 'Entrez le nom de rue de la résidence.'
+      description: 'Entrez le nom de rue de la résidence à louer.'
     },
     {
       name: 'residencePostalCode',
@@ -26,7 +26,7 @@ export const residenceAccordionItem = {
       placeholder: '75000',
       defaultValue: '75000',
       schema: z.string(),
-      description: 'Entrez le code postal de la résidence.'
+      description: 'Entrez le code postal de la résidence à louer.'
     },
     {
       name: 'residenceCity',
@@ -34,7 +34,7 @@ export const residenceAccordionItem = {
       placeholder: 'Paris',
       defaultValue: 'Paris',
       schema: z.string(),
-      description: 'Entrez la ville de la résidence.'
+      description: 'Entrez la ville de la résidence à louer.'
     },
     {
       name: 'residenceLivingArea',
@@ -42,7 +42,7 @@ export const residenceAccordionItem = {
       placeholder: '75',
       defaultValue: '75',
       schema: z.string(),
-      description: 'Entrez la surface en m² habitable de la résidence.'
+      description: 'Entrez la surface en m² habitable de la résidence à louer.'
     },
     {
       name: 'residenceNumberOfMainRooms',

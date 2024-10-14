@@ -51,7 +51,8 @@ export const tenantAccordionItem = {
       placeholder: '43',
       defaultValue: '43',
       schema: z.string(),
-      description: 'Entrez le numéro de rue du locataire.'
+      description:
+        'Entrez le numéro de rue où habite actuellement le locataire (avant la signature de ce bail).'
     },
     {
       name: 'tenantStreetName',
@@ -59,7 +60,8 @@ export const tenantAccordionItem = {
       placeholder: 'Avenue de la Liberté',
       defaultValue: 'Rue Jean Jaurès',
       schema: z.string(),
-      description: 'Entrez le nom de rue du locataire.'
+      description:
+        'Entrez le nom de rue où habite actuellement le locataire (avant la signature de ce bail).'
     },
     {
       name: 'tenantPostalCode',
@@ -67,7 +69,8 @@ export const tenantAccordionItem = {
       placeholder: '59599',
       defaultValue: '59599',
       schema: z.string(),
-      description: 'Entrez le code postal du bailleur.'
+      description:
+        'Entrez le code postal où habite actuellement le locataire (avant la signature de ce bail).'
     },
     {
       name: 'tenantCity',
@@ -75,7 +78,8 @@ export const tenantAccordionItem = {
       placeholder: 'Tourcoing',
       defaultValue: 'Tourcoing',
       schema: z.string(),
-      description: 'Entrez la ville du locataire.'
+      description:
+        'Entrez la ville où habite actuellement le locataire (avant la signature de ce bail).'
     }
   ]
 }
