@@ -31,7 +31,7 @@ const OrderPreviewButton: React.FC<Props> = ({ leaseUrl }) => {
     <form action={`/api/checkout_sessions?leaseUrl=${leaseUrl}`} method='POST'>
       <section>
         <Button type='submit' role='link'>
-          Obtenir votre bail contre 10 €
+          Acheter votre bail pour le télécharger
         </Button>
         {/* <pre>
           <code>{JSON.stringify(leaseUrl, null, 2)}</code>

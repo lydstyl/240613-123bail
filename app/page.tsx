@@ -84,12 +84,15 @@ const Home: React.FC<Props> = () => {
     return <div>Loading...</div>
   }
 
+  const isLeaseReady = !!leaseUrl
+  const isLeasePaid = !!leaseUrl2
+
   return (
     <main className='p-24'>
       {/* <ProgressDemo /> */}
       <h1 className='text-2xl'>123 bail !</h1>
 
-      {!leaseUrl2 && (
+      {!isLeaseReady && !isLeasePaid && (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
             <Accordion type='single' collapsible className='w-full'>
@@ -127,21 +130,28 @@ const Home: React.FC<Props> = () => {
               ))}
             </Accordion>
 
-            <Button type='submit'>Submit</Button>
+            <Button type='submit'>Générer le bail (contrat de location)</Button>
           </form>
         </Form>
       )}
 
-      {leaseUrl && <OrderPreviewButton leaseUrl={leaseUrl} />}
-      {leaseUrl2 && (
+      {isLeaseReady && (
         <>
-          <a href={leaseUrl2}>Télécharger le bail</a>
-          <div>
-            <Link href='/'>Créer un nouveau bail.</Link>
-          </div>
+          <p className='mt-20 mb-10'>
+            Votre bail (contrat de location) a été généré avec succès.
+          </p>
+          <OrderPreviewButton leaseUrl={leaseUrl} />
         </>
       )}
-      {leaseUrl && <a href={leaseUrl}>Remove this download dev button</a>}
+      {isLeasePaid && (
+        <>
+          <a href={leaseUrl2}>Télécharger le bail</a>
+          {/* <div>
+            <Link href='/'>Créer un nouveau bail.</Link>
+          </div> */}
+        </>
+      )}
+      {/* {leaseUrl && <a href={leaseUrl}>Remove this download dev button</a>} */}
     </main>
   )
 }

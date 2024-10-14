@@ -1,7 +1,7 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
 const storeItems = new Map([
-  [1, { priceInCents: 1000, name: 'Votre bail' }]
+  [1, { priceInCents: 1990, name: 'Votre bail' }]
   //   [2, { priceInCents: 20000, name: 'Learn CSS Today' }]
 ])
 
